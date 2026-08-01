@@ -6,7 +6,7 @@ export function BottomCtaBar() {
   );
 
   return (
-    <div className="sticky bottom-0 z-30 safe-bottom bg-cream/95 backdrop-blur border-t border-ink/10">
+    <div className="md:hidden sticky bottom-0 z-30 safe-bottom bg-cream/95 backdrop-blur border-t border-ink/10">
       <div className="max-w-xl mx-auto px-4 py-3">
         <a
           href={link}

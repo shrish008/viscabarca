@@ -52,7 +52,7 @@ export default function DressCodePlanner() {
   return (
     <PageShell title="Dress Code Planner">
       {step === "form" && (
-        <div className="space-y-6">
+        <div className="max-w-2xl mx-auto space-y-6">
           <div>
             <SectionBadge>Dress Code Planner</SectionBadge>
             <p className="text-ink/70 text-sm leading-relaxed">
@@ -104,7 +104,7 @@ export default function DressCodePlanner() {
             type="button"
             disabled={!canSubmit}
             onClick={handleSubmit}
-            className="w-full h-12 rounded-full bg-berry text-cream font-semibold disabled:opacity-40 active:opacity-90"
+            className="w-full h-12 rounded-full bg-purple text-cream font-semibold disabled:opacity-40 active:opacity-90"
           >
             Show me looks
           </button>
@@ -114,57 +114,61 @@ export default function DressCodePlanner() {
       {step === "loading" && (
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <div className="w-10 h-10 rounded-full border-2 border-gold border-t-transparent animate-spin mb-4" />
-          <p className="font-serif text-lg text-ink">Coordinating looks for your {group.toLowerCase()}…</p>
+          <p className="font-sans font-medium text-lg text-ink">Coordinating looks for your {group.toLowerCase()}…</p>
           <p className="text-sm text-ink/60 mt-1">Matching colours to your {vibe.toLowerCase()} vibe.</p>
         </div>
       )}
 
       {step === "result" && (
-        <div className="space-y-5">
+        <div className="max-w-4xl mx-auto space-y-5">
           <div>
             <SectionBadge>Suggested looks</SectionBadge>
-            <h2 className="font-serif text-xl font-semibold text-ink">
+            <h2 className="font-display text-xl font-semibold text-ink">
               {group} · {vibe}
             </h2>
           </div>
 
-          {suggestions.map((s, i) => (
-            <Card key={i}>
-              <p className="font-serif font-semibold text-ink capitalize">{s.title}</p>
-              <div className="flex gap-2 mt-3">
-                {s.colours.map((c) => (
-                  <span
-                    key={c}
-                    className="text-xs font-medium px-3 py-1 rounded-full bg-cream border border-ink/10 text-ink/70"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-3 space-y-1 text-sm text-ink/80">
-                <p>{s.menLook}</p>
-                <p>{s.womenLook}</p>
-              </div>
-              <p className="text-xs text-ink/50 mt-3 leading-snug">{s.note}</p>
-            </Card>
-          ))}
+          <div className="grid md:grid-cols-3 gap-4">
+            {suggestions.map((s, i) => (
+              <Card key={i}>
+                <p className="font-sans font-semibold text-ink capitalize">{s.title}</p>
+                <div className="flex gap-2 mt-3 flex-wrap">
+                  {s.colours.map((c) => (
+                    <span
+                      key={c}
+                      className="text-xs font-medium px-3 py-1 rounded-full bg-cream border border-ink/10 text-ink/70"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-3 space-y-1 text-sm text-ink/80">
+                  <p>{s.menLook}</p>
+                  <p>{s.womenLook}</p>
+                </div>
+                <p className="text-xs text-ink/50 mt-3 leading-snug">{s.note}</p>
+              </Card>
+            ))}
+          </div>
 
-          <LeadCaptureCard
-            ctaLabel="Planning the whole event, not just the outfits?"
-            helperText="Send this to Magical Realm and let's plan everything around this palette."
-            message={waMessage}
-            tool="dress"
-            inputs={{ eventType, group, vibe, palette, budgetPerPerson }}
-            resultSummary={resultSummary}
-          />
+          <div className="max-w-2xl mx-auto space-y-5">
+            <LeadCaptureCard
+              ctaLabel="Planning the whole event, not just the outfits?"
+              helperText="Send this to Magical Realm and let's plan everything around this palette."
+              message={waMessage}
+              tool="dress"
+              inputs={{ eventType, group, vibe, palette, budgetPerPerson }}
+              resultSummary={resultSummary}
+            />
 
-          <button
-            type="button"
-            onClick={() => setStep("form")}
-            className="w-full h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
-          >
-            Edit details
-          </button>
+            <button
+              type="button"
+              onClick={() => setStep("form")}
+              className="w-full h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
+            >
+              Edit details
+            </button>
+          </div>
         </div>
       )}
     </PageShell>

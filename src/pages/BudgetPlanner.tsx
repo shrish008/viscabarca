@@ -82,13 +82,13 @@ export default function BudgetPlanner() {
     verdict.verdict === "Comfortable"
       ? "text-emerald-700 bg-emerald-50 border-emerald-200"
       : verdict.verdict === "Tight"
-      ? "text-gold bg-gold/10 border-gold/30"
+      ? "text-gold-deep bg-gold/10 border-gold/30"
       : "text-red-700 bg-red-50 border-red-200";
 
   return (
     <PageShell title="Budget Planner">
       {step === "form" && (
-        <div className="space-y-6">
+        <div className="max-w-2xl mx-auto space-y-6">
           <div>
             <SectionBadge>Event Budget Planner</SectionBadge>
             <p className="text-ink/70 text-sm leading-relaxed">
@@ -154,7 +154,7 @@ export default function BudgetPlanner() {
             type="button"
             disabled={!canSubmit}
             onClick={handleSubmit}
-            className="w-full h-12 rounded-full bg-berry text-cream font-semibold disabled:opacity-40 active:opacity-90"
+            className="w-full h-12 rounded-full bg-purple text-cream font-semibold disabled:opacity-40 active:opacity-90"
           >
             See my breakdown
           </button>
@@ -164,16 +164,16 @@ export default function BudgetPlanner() {
       {step === "loading" && (
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <div className="w-10 h-10 rounded-full border-2 border-gold border-t-transparent animate-spin mb-4" />
-          <p className="font-serif text-lg text-ink">Crunching the numbers for your {eventType?.toLowerCase()}…</p>
+          <p className="font-sans font-medium text-lg text-ink">Crunching the numbers for your {eventType?.toLowerCase()}…</p>
           <p className="text-sm text-ink/60 mt-1">Balancing venue, catering, decor and more.</p>
         </div>
       )}
 
       {step === "result" && (
-        <div className="space-y-5">
+        <div className="max-w-2xl mx-auto space-y-5">
           <div>
             <SectionBadge>Your breakdown</SectionBadge>
-            <h2 className="font-serif text-xl font-semibold text-ink">
+            <h2 className="font-display text-xl font-semibold text-ink">
               {eventType} · {guestNum} guests · {city}
             </h2>
           </div>
@@ -181,7 +181,7 @@ export default function BudgetPlanner() {
           <Card>
             <div className="flex items-baseline justify-between">
               <span className="text-sm text-ink/60">Per-head cost</span>
-              <span className="font-serif text-xl font-semibold text-ink font-tabular">{formatRupees(verdict.perHead)}</span>
+              <span className="font-display text-xl font-semibold text-ink font-tabular">{formatRupees(verdict.perHead)}</span>
             </div>
             <div className={`mt-3 rounded-lg border px-3 py-2 text-sm font-semibold ${verdictColor}`}>
               {verdict.verdict}
@@ -190,7 +190,7 @@ export default function BudgetPlanner() {
           </Card>
 
           <Card>
-            <p className="font-serif font-semibold text-ink mb-3">Itemized breakdown</p>
+            <p className="font-display font-semibold text-ink mb-3">Itemized breakdown</p>
             <p className="text-xs text-ink/50 mb-4">Drag any slider — the rest rebalance automatically.</p>
             <div className="space-y-4">
               {categories.map((c) => (
@@ -207,7 +207,7 @@ export default function BudgetPlanner() {
                     max={100}
                     value={Math.round(c.share)}
                     onChange={(e) => handleSliderChange(c.key, Number(e.target.value))}
-                    className="w-full accent-berry"
+                    className="w-full accent-purple"
                   />
                 </div>
               ))}

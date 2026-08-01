@@ -1,18 +1,23 @@
 import type { ReactNode } from "react";
 import { Header } from "./Header";
 import { BottomCtaBar } from "./BottomCtaBar";
+import { Footer } from "./Footer";
 
 export function PageShell({
   title,
+  hero,
   children,
 }: {
   title?: string;
+  hero?: ReactNode;
   children: ReactNode;
 }) {
   return (
     <div className="flex flex-col min-h-screen bg-cream">
       <Header title={title} />
-      <main className="flex-1 max-w-xl w-full mx-auto px-4 py-5">{children}</main>
+      {hero}
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 md:px-8 py-5 md:py-10">{children}</main>
+      <Footer />
       <BottomCtaBar />
     </div>
   );

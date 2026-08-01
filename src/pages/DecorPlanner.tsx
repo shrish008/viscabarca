@@ -91,7 +91,7 @@ export default function DecorPlanner() {
   return (
     <PageShell title="Decor & Stage Planner">
       {step === "form" && (
-        <div className="space-y-6">
+        <div className="max-w-2xl mx-auto space-y-6">
           <div>
             <SectionBadge>Decor & Stage Planner</SectionBadge>
             <p className="text-ink/70 text-sm leading-relaxed">
@@ -169,7 +169,7 @@ export default function DecorPlanner() {
             type="button"
             disabled={!canSubmit}
             onClick={handleSubmit}
-            className="w-full h-12 rounded-full bg-berry text-cream font-semibold disabled:opacity-40 active:opacity-90"
+            className="w-full h-12 rounded-full bg-purple text-cream font-semibold disabled:opacity-40 active:opacity-90"
           >
             Generate concepts
           </button>
@@ -179,16 +179,16 @@ export default function DecorPlanner() {
       {step === "loading" && (
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <div className="w-10 h-10 rounded-full border-2 border-gold border-t-transparent animate-spin mb-4" />
-          <p className="font-serif text-lg text-ink">Styling your {theme.toLowerCase()} stage…</p>
+          <p className="font-sans font-medium text-lg text-ink">Styling your {theme.toLowerCase()} stage…</p>
           <p className="text-sm text-ink/60 mt-1">This usually takes a few seconds.</p>
         </div>
       )}
 
       {step === "result" && (
-        <div className="space-y-5">
+        <div className="max-w-4xl mx-auto space-y-5">
           <div>
             <SectionBadge>Concept directions</SectionBadge>
-            <h2 className="font-serif text-xl font-semibold text-ink">
+            <h2 className="font-display text-xl font-semibold text-ink">
               {theme} · {setting} · {stageSize}
             </h2>
             <p className="text-xs text-ink/50 mt-2 leading-relaxed">
@@ -197,7 +197,7 @@ export default function DecorPlanner() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {concepts.map((c) => (
               <button
                 key={c.id}
@@ -210,36 +210,38 @@ export default function DecorPlanner() {
             ))}
           </div>
 
-          <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={handleRegenerate}
-              className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
-            >
-              Regenerate
-            </button>
-            <button
-              type="button"
-              onClick={() => setStep("form")}
-              className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
-            >
-              Refine
-            </button>
+          <div className="max-w-2xl mx-auto space-y-5">
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={handleRegenerate}
+                className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
+              >
+                Regenerate
+              </button>
+              <button
+                type="button"
+                onClick={() => setStep("form")}
+                className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
+              >
+                Refine
+              </button>
+            </div>
+
+            <details className="text-xs text-ink/40">
+              <summary className="cursor-pointer select-none">Prompt we'd use for full AI renders</summary>
+              <p className="mt-2 leading-relaxed">{prompt}</p>
+            </details>
+
+            <LeadCaptureCard
+              ctaLabel="Love a look? Magical Realm will build it for real →"
+              helperText="Send your favourite direction and we'll turn it into an on-site design."
+              message={waMessage}
+              tool="decor"
+              inputs={{ eventType, setting, stageSize, guestCount, budgetBand, theme, palette, freeText, selected: selected?.label }}
+              resultSummary={resultSummary}
+            />
           </div>
-
-          <details className="text-xs text-ink/40">
-            <summary className="cursor-pointer select-none">Prompt we'd use for full AI renders</summary>
-            <p className="mt-2 leading-relaxed">{prompt}</p>
-          </details>
-
-          <LeadCaptureCard
-            ctaLabel="Love a look? Magical Realm will build it for real →"
-            helperText="Send your favourite direction and we'll turn it into an on-site design."
-            message={waMessage}
-            tool="decor"
-            inputs={{ eventType, setting, stageSize, guestCount, budgetBand, theme, palette, freeText, selected: selected?.label }}
-            resultSummary={resultSummary}
-          />
         </div>
       )}
     </PageShell>

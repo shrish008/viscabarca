@@ -1,35 +1,78 @@
 @import "tailwindcss";
 
-@theme {
-  --font-serif: "Playfair Display", Cambria, Georgia, serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+/* ————————————————————————————————————————————————
+   Magical Realm brand fonts — self-hosted, latin subset.
+   Fraunces: a soft, ink-trap serif for the display voice (wedding-card
+   warmth without going full calligraphy). Work Sans: a humanist body face
+   with enough personality to avoid the generic "safe sans" default.
+   Both are variable fonts, so one file each covers the full weight range.
+———————————————————————————————————————————————— */
+@font-face {
+  font-family: "Fraunces Var";
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces Var";
+  font-style: italic;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Work Sans Var";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/worksans.woff2") format("woff2");
+}
 
+@theme {
+  --font-serif: "Fraunces Var", Cambria, Georgia, serif;
+  --font-sans: "Work Sans Var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Brand palette (fixed hex per brand guidelines) */
   --color-berry: #6d2e46;
-  --color-berry-dark: #55233690;
+  --color-berry-deep: #4c2032;
   --color-rose: #a26769;
   --color-gold: #9a6b1e;
+  --color-gold-bright: #c4922f;
   --color-cream: #f3ebe0;
-  --color-cream-soft: #faf5ee;
+  --color-paper: #fbf7f1;
   --color-ink: #2a2320;
   --color-whatsapp: #25d366;
   --color-whatsapp-dark: #1fb855;
 }
 
+/*
+  Magical Realm is a fixed, single-mood brand world — warm cream, berry and
+  gold, the way the physical decor and print collateral look. It does not
+  adapt to the visitor's OS theme, the same way a wedding invitation
+  doesn't ship a "dark mode" print run. This is a deliberate choice, not an
+  omission: color-scheme is pinned to light throughout.
+*/
 :root {
-  color-scheme: light;
+  color-scheme: light only;
 }
 
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html {
+  background: var(--color-cream);
+}
+
+body {
   margin: 0;
   padding: 0;
   background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 16px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -43,6 +86,9 @@ html, body {
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
   color: var(--color-ink);
+  text-wrap: balance;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 button, input, select, textarea {
@@ -58,16 +104,73 @@ input, select, textarea {
   color: var(--color-cream);
 }
 
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* The brief's specified motif: a small gold circular badge preceding
+   section headers, standing in for a rule/accent-bar (deliberately not
+   using an accent stripe/bar per brand direction). */
 .gold-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 9999px;
   background: var(--color-gold);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 18%, transparent);
+}
+
+/* Rounded-frame motif used on portrait/photo-style surfaces */
+.brand-frame {
+  border-radius: 1.75rem;
+  position: relative;
 }
 
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Hero backdrop — a mandap-glow gradient built from the brand palette,
+   standing in for photography we don't have real assets for yet. */
+.hero-glow {
+  background:
+    radial-gradient(120% 85% at 50% -15%, color-mix(in srgb, var(--color-gold) 24%, transparent), transparent 62%),
+    radial-gradient(90% 70% at 88% 8%, color-mix(in srgb, var(--color-berry) 20%, transparent), transparent 68%),
+    radial-gradient(70% 60% at 8% 6%, color-mix(in srgb, var(--color-rose) 22%, transparent), transparent 70%);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-rise {
+  animation: rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

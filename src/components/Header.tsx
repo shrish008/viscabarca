@@ -18,7 +18,7 @@ export function Header({ title }: { title?: string }) {
           </button>
         ) : (
           <Link to="/" className="flex items-center gap-2">
-            <span className="w-7 h-7 rounded-full bg-berry text-cream flex items-center justify-center font-serif text-sm">
+            <span className="w-7 h-7 rounded-full bg-berry text-cream flex items-center justify-center font-serif italic text-sm ring-1 ring-gold/40">
               M
             </span>
           </Link>

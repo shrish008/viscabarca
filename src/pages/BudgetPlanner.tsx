@@ -112,7 +112,7 @@ export default function BudgetPlanner() {
               placeholder="e.g. 300"
               value={guestCount}
               onChange={(e) => setGuestCount(e.target.value)}
-              className="w-full h-12 rounded-xl px-4 bg-white border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
+              className="w-full h-12 rounded-xl px-4 bg-paper border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
             />
           </Field>
 
@@ -121,7 +121,7 @@ export default function BudgetPlanner() {
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="w-full h-12 rounded-xl px-4 bg-white border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
+              className="w-full h-12 rounded-xl px-4 bg-paper border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
             />
           </Field>
 
@@ -133,7 +133,7 @@ export default function BudgetPlanner() {
               placeholder="e.g. 1500000"
               value={totalBudget}
               onChange={(e) => setTotalBudget(e.target.value)}
-              className="w-full h-12 rounded-xl px-4 bg-white border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
+              className="w-full h-12 rounded-xl px-4 bg-paper border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
             />
           </Field>
 
@@ -181,7 +181,7 @@ export default function BudgetPlanner() {
           <Card>
             <div className="flex items-baseline justify-between">
               <span className="text-sm text-ink/60">Per-head cost</span>
-              <span className="font-serif text-xl font-semibold text-ink">{formatRupees(verdict.perHead)}</span>
+              <span className="font-serif text-xl font-semibold text-ink font-tabular">{formatRupees(verdict.perHead)}</span>
             </div>
             <div className={`mt-3 rounded-lg border px-3 py-2 text-sm font-semibold ${verdictColor}`}>
               {verdict.verdict}
@@ -197,7 +197,7 @@ export default function BudgetPlanner() {
                 <div key={c.key}>
                   <div className="flex items-center justify-between text-sm mb-1">
                     <span className="font-medium text-ink">{c.label}</span>
-                    <span className="text-ink/60">
+                    <span className="text-ink/60 font-tabular">
                       {formatRupees(c.amount)} · {Math.round(c.share)}%
                     </span>
                   </div>
@@ -226,7 +226,7 @@ export default function BudgetPlanner() {
           <button
             type="button"
             onClick={() => setStep("form")}
-            className="w-full h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-cream-soft"
+            className="w-full h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
           >
             Edit details
           </button>

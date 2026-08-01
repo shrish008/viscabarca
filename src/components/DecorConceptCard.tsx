@@ -59,16 +59,16 @@ export function DecorConceptCard({
   const secondary = colourNameToHex(palette[1] ?? "Gold");
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-ink/10 bg-white shadow-sm">
+    <div className="rounded-2xl overflow-hidden border border-ink/10 bg-paper shadow-sm">
       <div
         className="aspect-[4/5] flex items-center justify-center p-8"
         style={{ background: `linear-gradient(160deg, ${primary}1a, ${secondary}22)` }}
       >
         <PatternArt pattern={concept.pattern} primary={primary} secondary={secondary} />
       </div>
-      <div className="px-3 py-2.5 flex items-center justify-between">
-        <span className="text-sm font-medium text-ink">{concept.label}</span>
-        <span className="text-[10px] uppercase tracking-wide text-ink/40 font-semibold">Concept preview</span>
+      <div className="px-3 py-2.5">
+        <span className="text-sm font-medium text-ink block">{concept.label}</span>
+        <span className="eyebrow text-ink/40 text-[10px]">Concept preview</span>
       </div>
     </div>
   );

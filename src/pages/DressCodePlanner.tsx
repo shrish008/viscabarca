@@ -96,7 +96,7 @@ export default function DressCodePlanner() {
               placeholder="e.g. 3000"
               value={budgetPerPerson}
               onChange={(e) => setBudgetPerPerson(e.target.value)}
-              className="w-full h-12 rounded-xl px-4 bg-white border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
+              className="w-full h-12 rounded-xl px-4 bg-paper border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
             />
           </Field>
 
@@ -161,7 +161,7 @@ export default function DressCodePlanner() {
           <button
             type="button"
             onClick={() => setStep("form")}
-            className="w-full h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-cream-soft"
+            className="w-full h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
           >
             Edit details
           </button>

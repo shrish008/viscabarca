@@ -15,7 +15,7 @@ export function Chip({
       className={`min-h-11 px-4 rounded-full border text-[15px] font-medium transition-colors ${
         selected
           ? "bg-berry border-berry text-cream"
-          : "bg-white border-ink/15 text-ink active:bg-cream-soft"
+          : "bg-paper border-ink/15 text-ink active:bg-paper"
       }`}
     >
       {label}

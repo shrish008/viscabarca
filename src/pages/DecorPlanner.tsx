@@ -131,7 +131,7 @@ export default function DecorPlanner() {
               placeholder="e.g. 300"
               value={guestCount}
               onChange={(e) => setGuestCount(e.target.value)}
-              className="w-full h-12 rounded-xl px-4 bg-white border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
+              className="w-full h-12 rounded-xl px-4 bg-paper border border-ink/15 outline-none focus:ring-2 focus:ring-gold"
             />
           </Field>
 
@@ -161,7 +161,7 @@ export default function DecorPlanner() {
               onChange={(e) => setFreeText(e.target.value)}
               placeholder="e.g. a floating floral canopy with hanging lanterns…"
               rows={3}
-              className="w-full rounded-xl px-4 py-3 bg-white border border-ink/15 outline-none focus:ring-2 focus:ring-gold resize-none"
+              className="w-full rounded-xl px-4 py-3 bg-paper border border-ink/15 outline-none focus:ring-2 focus:ring-gold resize-none"
             />
           </Field>
 
@@ -214,14 +214,14 @@ export default function DecorPlanner() {
             <button
               type="button"
               onClick={handleRegenerate}
-              className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-cream-soft"
+              className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
             >
               Regenerate
             </button>
             <button
               type="button"
               onClick={() => setStep("form")}
-              className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-cream-soft"
+              className="flex-1 h-11 rounded-full border border-ink/15 text-ink/70 font-medium active:bg-paper"
             >
               Refine
             </button>

@@ -36,9 +36,12 @@ export function LeadCaptureCard({
   }
 
   return (
-    <div className="bg-berry rounded-2xl p-5 text-cream">
-      <p className="font-serif text-lg font-semibold leading-snug">{ctaLabel}</p>
-      {helperText && <p className="text-sm text-cream/80 mt-1">{helperText}</p>}
+    <div
+      className="rounded-2xl p-5 text-cream ring-1 ring-gold/30"
+      style={{ background: "linear-gradient(155deg, var(--color-berry), var(--color-berry-deep))" }}
+    >
+      <p className="font-serif text-lg font-medium leading-snug text-balance">{ctaLabel}</p>
+      {helperText && <p className="text-sm text-cream/75 mt-1.5 leading-relaxed">{helperText}</p>}
 
       <div className="mt-4 space-y-2">
         <input

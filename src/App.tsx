@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { EventProvider } from "./context/EventContext";
 import Home from "./pages/Home";
 import BudgetPlanner from "./pages/BudgetPlanner";
@@ -8,14 +8,14 @@ import DecorPlanner from "./pages/DecorPlanner";
 function App() {
   return (
     <EventProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/budget" element={<BudgetPlanner />} />
           <Route path="/dress-code" element={<DressCodePlanner />} />
           <Route path="/decor" element={<DecorPlanner />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </EventProvider>
   );
 }

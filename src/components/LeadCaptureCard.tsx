@@ -25,12 +25,12 @@ export function LeadCaptureCard({
   useEffect(() => {
     if (autoSaved.current) return;
     autoSaved.current = true;
-    saveLead({ tool, inputs, resultSummary });
+    saveLead({ tool, action: "session", inputs, resultSummary });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleSend() {
-    saveLead({ tool, inputs, resultSummary, name, whatsapp });
+    saveLead({ tool, action: "whatsapp_cta", inputs, resultSummary, name, whatsapp });
     const personalized = name.trim() ? `Hi, I'm ${name.trim()}. ${message}` : message;
     window.open(buildWhatsAppLink(personalized), "_blank", "noopener,noreferrer");
   }

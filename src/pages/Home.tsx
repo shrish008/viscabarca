@@ -3,6 +3,7 @@ import { PageShell } from "../components/PageShell";
 import { SectionBadge } from "../components/SectionBadge";
 import { ToolCard } from "../components/ToolCard";
 import { Reveal } from "../components/Reveal";
+import { LogoMark } from "../components/Logo";
 import { buildWhatsAppLink } from "../lib/whatsapp";
 
 const TRUST_POINTS = [
@@ -66,21 +67,27 @@ function Hero() {
               >
                 Chat on WhatsApp
               </a>
-              <a
-                href="#tools"
+              <button
+                type="button"
+                onClick={() => {
+                  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                  document
+                    .getElementById("tools")
+                    ?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+                }}
                 className="inline-flex items-center justify-center h-12 px-6 rounded-full border border-cream/25 text-cream font-semibold hover:border-gold/60 hover:text-gold transition-colors"
               >
                 Explore the tools
-              </a>
+              </button>
             </div>
           </div>
 
           <div className="hidden md:block relative h-72" aria-hidden="true">
             <div className="absolute inset-0 rounded-[2rem] border border-gold/25" />
             <div className="absolute inset-6 rounded-[1.5rem] border border-gold/15" />
-            <span className="absolute inset-0 flex items-center justify-center font-script text-gold/70 text-[7rem] leading-none">
-              M
-            </span>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <LogoMark size={180} className="opacity-90 drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]" />
+            </div>
           </div>
         </div>
       </div>

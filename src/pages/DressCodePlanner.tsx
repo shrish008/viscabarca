@@ -4,6 +4,7 @@ import { SectionBadge } from "../components/SectionBadge";
 import { Chip } from "../components/Chip";
 import { ColorSwatchPicker } from "../components/ColorSwatchPicker";
 import { LeadCaptureCard } from "../components/LeadCaptureCard";
+import { ExportPdfCard } from "../components/ExportPdfCard";
 import { useEvent } from "../context/EventContext";
 import { EVENT_TYPES, type EventType } from "../types";
 import {
@@ -159,6 +160,22 @@ export default function DressCodePlanner() {
               tool="dress"
               inputs={{ eventType, group, vibe, palette, budgetPerPerson }}
               resultSummary={resultSummary}
+            />
+
+            <ExportPdfCard
+              tool="dress"
+              inputs={{ eventType, group, vibe, palette, budgetPerPerson }}
+              resultSummary={resultSummary}
+              onExport={async () => {
+                const { exportDressPdf } = await import("../lib/pdf");
+                exportDressPdf({
+                  meta: {
+                    eventType: eventType ?? "Event",
+                    detailLine: `${group} · ${vibe} vibe`,
+                  },
+                  suggestions,
+                });
+              }}
             />
 
             <button

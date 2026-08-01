@@ -3,6 +3,7 @@ import { PageShell, Field, Card } from "../components/PageShell";
 import { SectionBadge } from "../components/SectionBadge";
 import { Chip } from "../components/Chip";
 import { LeadCaptureCard } from "../components/LeadCaptureCard";
+import { ExportPdfCard } from "../components/ExportPdfCard";
 import { useEvent } from "../context/EventContext";
 import { EVENT_TYPES, type EventType } from "../types";
 import { allocateBudget, getVerdict, type BudgetCategory, type BudgetPriority } from "../lib/budget";
@@ -221,6 +222,30 @@ export default function BudgetPlanner() {
             tool="budget"
             inputs={{ eventType, guestCount: guestNum, city, totalBudget: budgetNum, priority }}
             resultSummary={resultSummary}
+          />
+
+          <ExportPdfCard
+            tool="budget"
+            inputs={{ eventType, guestCount: guestNum, city, totalBudget: budgetNum, priority }}
+            resultSummary={resultSummary}
+            onExport={async () => {
+              const { exportBudgetPdf } = await import("../lib/pdf");
+              exportBudgetPdf({
+                meta: {
+                  eventType: eventType ?? "Event",
+                  detailLine: `${eventType} · ${guestNum} guests · ${city}`,
+                },
+                perHead: formatRupees(verdict.perHead),
+                verdict: verdict.verdict,
+                verdictNote: verdict.note,
+                totalBudget: formatRupees(budgetNum),
+                categories: categories.map((c) => ({
+                  label: c.label,
+                  amount: formatRupees(c.amount),
+                  share: `${Math.round(c.share)}%`,
+                })),
+              });
+            }}
           />
 
           <button

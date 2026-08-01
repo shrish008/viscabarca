@@ -12,5 +12,11 @@ export const WHATSAPP_NUMBER =
 // still land safely on WhatsApp and in local lead history either way.
 export const LEAD_WEBHOOK_URL = import.meta.env.VITE_LEAD_WEBHOOK_URL || "";
 
+// Base URL of the backend in server/ (see server/README.md). Leave unset to
+// run frontend-only — leads still persist to localStorage and (if
+// configured) LEAD_WEBHOOK_URL, so nothing is lost, it just won't land in
+// the SQLite database until this is set and the backend is running.
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
 export const BRAND_NAME = "Magical Realm";
 export const SOURCE_TAG = "utm=instagram_bio";

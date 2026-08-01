@@ -5,6 +5,7 @@ import { Chip } from "../components/Chip";
 import { ColorSwatchPicker } from "../components/ColorSwatchPicker";
 import { DecorConceptCard } from "../components/DecorConceptCard";
 import { LeadCaptureCard } from "../components/LeadCaptureCard";
+import { ExportPdfCard } from "../components/ExportPdfCard";
 import { useEvent } from "../context/EventContext";
 import { EVENT_TYPES, type EventType } from "../types";
 import {
@@ -18,7 +19,6 @@ import {
   type DecorTheme,
   type StageSize,
 } from "../lib/decor";
-
 const SETTINGS: DecorSetting[] = ["Indoor", "Outdoor"];
 const STAGE_SIZES: StageSize[] = ["Small", "Medium", "Large"];
 
@@ -240,6 +240,25 @@ export default function DecorPlanner() {
               tool="decor"
               inputs={{ eventType, setting, stageSize, guestCount, budgetBand, theme, palette, freeText, selected: selected?.label }}
               resultSummary={resultSummary}
+            />
+
+            <ExportPdfCard
+              tool="decor"
+              inputs={{ eventType, setting, stageSize, guestCount, budgetBand, theme, palette, freeText, selected: selected?.label }}
+              resultSummary={resultSummary}
+              onExport={async () => {
+                const { exportDecorPdf } = await import("../lib/pdf");
+                exportDecorPdf({
+                  meta: {
+                    eventType: eventType ?? "Event",
+                    detailLine: `${theme} · ${setting} · ${stageSize}`,
+                  },
+                  concepts,
+                  selectedLabel: selected?.label ?? "No concept selected",
+                  prompt,
+                  freeText,
+                });
+              }}
             />
           </div>
         </div>

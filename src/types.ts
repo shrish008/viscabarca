@@ -37,13 +37,17 @@ export const DEFAULT_EVENT_STATE: EventState = {
 
 export type ToolId = "decor" | "budget" | "dress";
 
+export type LeadAction = "session" | "whatsapp_cta" | "pdf_export";
+
 export interface Lead {
   id: string;
   timestamp: string;
   tool: ToolId;
+  action: LeadAction;
   inputs: Record<string, unknown>;
   resultSummary: string;
   name: string;
   whatsapp: string;
+  email: string;
   source: string;
 }

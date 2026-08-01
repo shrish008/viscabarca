@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { buildWhatsAppLink } from "../lib/whatsapp";
+import { LogoMark } from "./Logo";
 
 export function Footer() {
   const chatLink = buildWhatsAppLink(
@@ -12,9 +13,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr_1fr] gap-8 md:gap-10">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-9 h-9 rounded-full bg-gold/15 text-gold flex items-center justify-center font-script text-2xl ring-1 ring-gold/50">
-                M
-              </span>
+              <LogoMark size={36} />
               <span className="font-display text-lg tracking-wide">Magical Realm</span>
             </div>
             <p className="text-sm text-cream/65 leading-relaxed max-w-xs">

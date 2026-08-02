@@ -19,6 +19,7 @@ import {
   type DecorTheme,
   type StageSize,
 } from "../lib/decor";
+import { usePdfModule } from "../lib/usePdfModule";
 const SETTINGS: DecorSetting[] = ["Indoor", "Outdoor"];
 const STAGE_SIZES: StageSize[] = ["Small", "Medium", "Large"];
 
@@ -40,6 +41,7 @@ export default function DecorPlanner() {
   const [concepts, setConcepts] = useState<DecorConcept[]>([]);
   const [selected, setSelected] = useState<DecorConcept | null>(null);
   const [regenKey, setRegenKey] = useState(0);
+  const pdfModule = usePdfModule(step === "result");
 
   const canSubmit = Boolean(eventType);
 
@@ -246,19 +248,21 @@ export default function DecorPlanner() {
               tool="decor"
               inputs={{ eventType, setting, stageSize, guestCount, budgetBand, theme, palette, freeText, selected: selected?.label }}
               resultSummary={resultSummary}
-              onExport={async () => {
-                const { exportDecorPdf } = await import("../lib/pdf");
-                exportDecorPdf({
-                  meta: {
-                    eventType: eventType ?? "Event",
-                    detailLine: `${theme} · ${setting} · ${stageSize}`,
-                  },
-                  concepts,
-                  selectedLabel: selected?.label ?? "No concept selected",
-                  prompt,
-                  freeText,
-                });
-              }}
+              onExport={
+                pdfModule
+                  ? () =>
+                      pdfModule.exportDecorPdf({
+                        meta: {
+                          eventType: eventType ?? "Event",
+                          detailLine: `${theme} · ${setting} · ${stageSize}`,
+                        },
+                        concepts,
+                        selectedLabel: selected?.label ?? "No concept selected",
+                        prompt,
+                        freeText,
+                      })
+                  : null
+              }
             />
           </div>
         </div>

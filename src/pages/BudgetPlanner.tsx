@@ -7,6 +7,7 @@ import { ExportPdfCard } from "../components/ExportPdfCard";
 import { useEvent } from "../context/EventContext";
 import { EVENT_TYPES, type EventType } from "../types";
 import { allocateBudget, getVerdict, type BudgetCategory, type BudgetPriority } from "../lib/budget";
+import { usePdfModule } from "../lib/usePdfModule";
 
 const PRIORITIES: BudgetPriority[] = ["Decor", "Food", "Photography"];
 
@@ -27,6 +28,7 @@ export default function BudgetPlanner() {
   const [priority, setPriority] = useState<BudgetPriority | null>(null);
 
   const [categories, setCategories] = useState<BudgetCategory[]>([]);
+  const pdfModule = usePdfModule(step === "result");
 
   const budgetNum = Number(totalBudget) || 0;
   const guestNum = Number(guestCount) || 0;
@@ -228,24 +230,26 @@ export default function BudgetPlanner() {
             tool="budget"
             inputs={{ eventType, guestCount: guestNum, city, totalBudget: budgetNum, priority }}
             resultSummary={resultSummary}
-            onExport={async () => {
-              const { exportBudgetPdf } = await import("../lib/pdf");
-              exportBudgetPdf({
-                meta: {
-                  eventType: eventType ?? "Event",
-                  detailLine: `${eventType} · ${guestNum} guests · ${city}`,
-                },
-                perHead: formatRupees(verdict.perHead),
-                verdict: verdict.verdict,
-                verdictNote: verdict.note,
-                totalBudget: formatRupees(budgetNum),
-                categories: categories.map((c) => ({
-                  label: c.label,
-                  amount: formatRupees(c.amount),
-                  share: `${Math.round(c.share)}%`,
-                })),
-              });
-            }}
+            onExport={
+              pdfModule
+                ? () =>
+                    pdfModule.exportBudgetPdf({
+                      meta: {
+                        eventType: eventType ?? "Event",
+                        detailLine: `${eventType} · ${guestNum} guests · ${city}`,
+                      },
+                      perHead: formatRupees(verdict.perHead),
+                      verdict: verdict.verdict,
+                      verdictNote: verdict.note,
+                      totalBudget: formatRupees(budgetNum),
+                      categories: categories.map((c) => ({
+                        label: c.label,
+                        amount: formatRupees(c.amount),
+                        share: `${Math.round(c.share)}%`,
+                      })),
+                    })
+                : null
+            }
           />
 
           <button

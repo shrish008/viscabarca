@@ -11,22 +11,23 @@ export function ExportPdfCard({
   tool: ToolId;
   inputs: Record<string, unknown>;
   resultSummary: string;
-  onExport: () => void | Promise<void>;
+  // null while the PDF engine is still loading in the background — kept
+  // synchronous once ready so the download fires directly inside the tap
+  // handler with no `await` in between. Mobile Safari (and increasingly
+  // other mobile browsers) revoke "user activation" the moment a click
+  // handler awaits something that takes real time, which silently blocks
+  // window.open/file-download triggers — this is why that matters here.
+  onExport: (() => void) | null;
 }) {
   const [name, setName] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
   const [open, setOpen] = useState(false);
-  const [preparing, setPreparing] = useState(false);
 
-  async function handleDownload() {
+  function handleDownload() {
+    if (!onExport) return;
     saveLead({ tool, action: "pdf_export", inputs, resultSummary, name, whatsapp, email });
-    setPreparing(true);
-    try {
-      await onExport();
-    } finally {
-      setPreparing(false);
-    }
+    onExport();
   }
 
   return (
@@ -80,10 +81,10 @@ export function ExportPdfCard({
           <button
             type="button"
             onClick={handleDownload}
-            disabled={preparing}
+            disabled={!onExport}
             className="w-full h-12 rounded-full bg-gold-deep text-cream font-semibold text-[15px] hover:brightness-110 transition flex items-center justify-center gap-2 disabled:opacity-60"
           >
-            {preparing ? (
+            {!onExport ? (
               <>
                 <span className="w-4 h-4 rounded-full border-2 border-cream/40 border-t-cream animate-spin" />
                 Preparing your PDF…

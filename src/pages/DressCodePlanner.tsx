@@ -15,6 +15,7 @@ import {
   type DressSuggestion,
   type DressVibe,
 } from "../lib/dressCode";
+import { usePdfModule } from "../lib/usePdfModule";
 
 type Step = "form" | "loading" | "result";
 
@@ -29,6 +30,7 @@ export default function DressCodePlanner() {
   const [budgetPerPerson, setBudgetPerPerson] = useState("");
 
   const [suggestions, setSuggestions] = useState<DressSuggestion[]>([]);
+  const pdfModule = usePdfModule(step === "result");
 
   const canSubmit = Boolean(eventType);
 
@@ -166,16 +168,18 @@ export default function DressCodePlanner() {
               tool="dress"
               inputs={{ eventType, group, vibe, palette, budgetPerPerson }}
               resultSummary={resultSummary}
-              onExport={async () => {
-                const { exportDressPdf } = await import("../lib/pdf");
-                exportDressPdf({
-                  meta: {
-                    eventType: eventType ?? "Event",
-                    detailLine: `${group} · ${vibe} vibe`,
-                  },
-                  suggestions,
-                });
-              }}
+              onExport={
+                pdfModule
+                  ? () =>
+                      pdfModule.exportDressPdf({
+                        meta: {
+                          eventType: eventType ?? "Event",
+                          detailLine: `${group} · ${vibe} vibe`,
+                        },
+                        suggestions,
+                      })
+                  : null
+              }
             />
 
             <button

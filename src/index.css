@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+/* ————————————————————————————————————————————————
+   Magical Realm brand fonts — self-hosted, latin subset.
+   Anton: heavy condensed caps for headlines — the poster-style voice.
+   Alex Brush: a flowing script reserved for one accent word per
+   headline, never body text. Work Sans: humanist body/UI face.
+———————————————————————————————————————————————— */
+@font-face {
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/anton.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Alex Brush";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/alexbrush.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Work Sans Var";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/worksans.woff2") format("woff2");
+}
+
+@theme {
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-script: "Alex Brush", cursive;
+  --font-sans: "Work Sans Var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Brand palette — deep purple primary, gold secondary */
+  --color-purple: #4b1f6f;
+  --color-purple-deep: #220f36;
+  --color-purple-bright: #93348f;
+  --color-gold: #c9a227;
+  /* Darker gold for text on light (cream/paper) backgrounds — the
+     brighter --color-gold reads well on dark purple but falls short of
+     WCAG AA contrast on cream, so small text uses this instead. */
+  --color-gold-deep: #86591a;
+  --color-cream: #f7f2ea;
+  --color-paper: #ffffff;
+  --color-ink: #221a2b;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #1fb855;
+}
+
+/* Base element resets live in Tailwind's own layer so that utility
+   classes (text-cream, etc.) — which are also layered — can still win
+   on specificity instead of being silently beaten by unlayered rules. */
+@layer base {
+  :root {
+    color-scheme: light only;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    background: var(--color-cream);
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    text-wrap: balance;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  .font-script {
+    font-family: var(--font-script);
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-purple-deep);
+  }
+}
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.gold-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 18%, transparent);
+}
+
+.brand-frame {
+  border-radius: 1.75rem;
+  position: relative;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-rise {
+  animation: rise-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Scroll-reveal: elements start hidden, .is-visible triggers the rise */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Hero — a slow-drifting purple/gold/magenta gradient standing in for
+   photography we don't have real assets for yet. */
+@keyframes hero-drift {
+  0%   { background-position: 0% 50%, 100% 20%, 20% 80%; }
+  50%  { background-position: 30% 60%, 70% 40%, 50% 60%; }
+  100% { background-position: 0% 50%, 100% 20%, 20% 80%; }
+}
+.hero-glow {
+  background-image:
+    radial-gradient(60% 55% at 30% 60%, color-mix(in srgb, var(--color-gold) 30%, transparent), transparent 70%),
+    radial-gradient(55% 50% at 100% 20%, color-mix(in srgb, var(--color-purple-bright) 55%, transparent), transparent 68%),
+    radial-gradient(70% 65% at 20% 80%, color-mix(in srgb, var(--color-purple) 70%, transparent), transparent 72%);
+  background-color: var(--color-purple-deep);
+  background-size: 160% 160%;
+  animation: hero-drift 18s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow { animation: none; }
+}
+
+.shimmer-gold {
+  background: linear-gradient(100deg, var(--color-gold) 30%, #f4e2a1 45%, var(--color-gold) 60%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 0% 0%; }
+  100% { background-position: -220% 0%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-gold { animation: none; background-position: 0% 0%; }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

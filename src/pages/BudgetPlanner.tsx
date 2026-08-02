@@ -196,9 +196,9 @@ export default function BudgetPlanner() {
             <div className="space-y-4">
               {categories.map((c) => (
                 <div key={c.key}>
-                  <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="font-medium text-ink">{c.label}</span>
-                    <span className="text-ink/60 font-tabular">
+                  <div className="flex items-start justify-between gap-3 text-sm mb-1.5">
+                    <span className="font-medium text-ink flex-1 min-w-0">{c.label}</span>
+                    <span className="text-ink/60 font-tabular shrink-0 whitespace-nowrap text-right">
                       {formatRupees(c.amount)} · {Math.round(c.share)}%
                     </span>
                   </div>

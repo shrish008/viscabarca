@@ -67,8 +67,8 @@ export function DecorConceptCard({
         <PatternArt pattern={concept.pattern} primary={primary} secondary={secondary} />
       </div>
       <div className="px-3 py-2.5">
-        <span className="text-sm font-medium text-ink block">{concept.label}</span>
-        <span className="eyebrow text-ink/40 text-[10px]">Concept preview</span>
+        <span className="text-[13px] font-medium text-ink leading-tight block">{concept.label}</span>
+        <span className="eyebrow text-ink/40 text-[10px] mt-1 block">Concept preview</span>
       </div>
     </div>
   );

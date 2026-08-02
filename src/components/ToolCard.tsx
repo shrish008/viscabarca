@@ -24,15 +24,13 @@ export function ToolCard({
           {icon}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <h3 className="font-display text-lg font-semibold text-ink">{title}</h3>
-            {badge && (
-              <span className="eyebrow text-gold-deep bg-gold/10 px-2 py-0.5 rounded-full">
-                {badge}
-              </span>
-            )}
-          </div>
-          <p className="text-sm text-ink/70 mt-1 leading-snug">{description}</p>
+          {badge && (
+            <span className="eyebrow text-gold-deep bg-gold/10 px-2 py-0.5 rounded-full inline-block mb-1.5">
+              {badge}
+            </span>
+          )}
+          <h3 className="font-display text-lg font-semibold text-ink leading-tight">{title}</h3>
+          <p className="text-sm text-ink/70 mt-1.5 leading-snug">{description}</p>
         </div>
         <svg
           className="shrink-0 mt-1 text-ink/30 transition-transform group-hover:translate-x-0.5 group-hover:text-gold"

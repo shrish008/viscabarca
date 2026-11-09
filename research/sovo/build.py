@@ -5,7 +5,7 @@ HERE = pathlib.Path(__file__).parent
 SRC = HERE / "report.html"
 OUT_HTML = HERE / "_rendered.html"
 OUT_PDF = HERE / "Sovo_Chennai_Community_Research.pdf"
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = sorted(pathlib.Path("/opt/pw-browsers").glob("chromium-*/chrome-linux*/chrome"))[-1]
 
 INK, MUTED, GRID = "#1d232b", "#6b7380", "#d9dde3"
 C_CHN, C_IND, C_GLB, C_SOVO = "#2a6fdb", "#d9822b", "#7a5bc7", "#c0392b"
